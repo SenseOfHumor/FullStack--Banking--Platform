@@ -28,7 +28,7 @@
 </table></td></tr>
 <table><tr><td> <em>Deliverable 4: </em> Issues </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="https://user-images.githubusercontent.com/54863474/211707773-e6aef7cb-d5b2-4053-bbb1-b09fc609041e.png"></td></tr>
 <tr><td><table><tr><td> <em>Sub-Task 1: </em> Did you have any issues? If so, how did you resolve them? If no issues, just type "no issues".</td></tr>
-<tr><td> <em>Response:</em> <p>The issue I was facing is that I already had a readme.md file<br>which was creating error when trying to stage the changes to the main<br>branch. I repaced the text in the old readme.md file with the one<br>that is asked in the assignment and pushed it to the origin.<br></p><br></td></tr>
+<tr><td> <em>Response:</em> <p>The issue I was facing is that there already existed a readme.md file<br>which was creating error when trying to stage the changes to the main<br>branch. I repaced the text in the old readme.md file with the one<br>that is asked in the assignment and pushed it to the origin.<br></p><br></td></tr>
 </table></td></tr>
 <table><tr><td> <em>Deliverable 5: </em> Pull Request Link </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="https://user-images.githubusercontent.com/54863474/211707773-e6aef7cb-d5b2-4053-bbb1-b09fc609041e.png"></td></tr>
 <tr><td><table><tr><td> <em>Sub-Task 1: </em> Add the pull request link here (it should end in /pull/#)</td></tr>
