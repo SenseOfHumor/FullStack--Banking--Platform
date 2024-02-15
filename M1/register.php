@@ -28,6 +28,7 @@ require(__DIR__ . "/partials/nav.php");
 //TODO 2: add PHP Code
 if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"])) {
     $email = se($_POST, "email", "", false);
+
     $password = se($_POST, "password", "", false);
     $confirm = se(
         $_POST,
