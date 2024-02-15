@@ -1,4 +1,5 @@
 <?php
+session_start();
 //Note: this is to resolve cookie issues with port numbers
 $domain = $_SERVER["HTTP_HOST"];
 if (strpos($domain, ":")) {
@@ -20,6 +21,8 @@ if (($localWorks && $domain == "localhost") || $domain != "localhost") {
     ]);
 }
 require_once(__DIR__ . "/../lib/functions.php");
+
+
 
 ?>
 <nav>
