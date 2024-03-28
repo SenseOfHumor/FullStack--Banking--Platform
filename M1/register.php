@@ -1,25 +1,109 @@
 <?php
 require(__DIR__ . "/partials/nav.php");
 ?>
-<form onsubmit="return validate(this)" method="POST">
-    <div>
-        <label for="email">Email</label>
-        <input type="email" name="email" required />
-    </div>
-    <div>
-        <label for="username">Username</label>
-        <input type="text" name="username" required />
-    </div>
-    <div>
-        <label for="pw">Password</label>
-        <input type="password" id="pw" name="password" required minlength="8" />
-    </div>
-    <div>
-        <label for="confirm">Confirm</label>
-        <input type="password" name="confirm" required minlength="8" />
-    </div>
-    <input type="submit" value="Register" />
-</form>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+
+    input {
+    caret-color: red;
+    }
+
+    body {
+        background: url('bg1.jpg') no-repeat center center fixed; 
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        place-items: center;
+        overflow: hidden;
+        font-family: poppins;
+    }
+    .container {
+        position: relative;
+        width: 350px;
+        height: 700px;
+        border-radius: 20px;
+        padding: 40px;
+        box-sizing: border-box;
+        background: #ecf0f3;
+        /* box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white; */
+    }
+    .inputs {
+        text-align: left;
+        margin-top: 30px;
+    }
+
+    label, input, button {
+        display: block;
+        width: 100%;
+        padding: 0;
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+    label {
+        margin-bottom: 4px;
+    }
+
+    label:nth-of-type(2) {
+        margin-top: 12px;
+    }
+
+    input::placeholder {
+        color: gray;
+    }
+    input::placeholder {
+        color: gray;
+    }
+
+    input {
+        background: #ecf0f3;
+        padding: 10px;
+        padding-left: 20px;
+        height: 50px;
+        font-size: 14px;
+        border-radius: 50px;
+        box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+    }
+
+    button {
+        color: white;
+        margin-top: 20px;
+        background: #1DA1F2;
+        height: 40px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 900;
+        box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+        transition: 0.5s;
+    }
+
+        button:hover {
+        box-shadow: none;
+    }
+</style>
+<div class="container">
+    <div class="brand-logo"></div>
+    <div class="brand-title">REGISTER</div>
+    <form class="inputs" onsubmit="return validate(this)" method="POST">
+        <label>EMAIL</label>
+        <input type="email" name="email" placeholder="email address here" required />
+        <label>USERNAME</label>
+        <input type="text" name="username" placeholder="username here" required />
+        <label>PASSWORD</label>
+        <input type="password" name="password" placeholder="password here" required minlength="8" />
+        <label>CONFIRM PASSWORD</label>
+        <input type="password" name="confirm" placeholder="confirm password here" required minlength="8" />
+        <button type="submit">REGISTER</button>
+        <!-- <button type="button" onclick="window.location.href='login.php'">LOGIN</button> -->
+    </form>
+    <p>Already have an account? <a href="login.php">Login</a></p>
+</div>
 <script>
     function validate(form) {
         //TODO 1: implement JavaScript validation
