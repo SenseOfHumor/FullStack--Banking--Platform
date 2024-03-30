@@ -94,6 +94,10 @@ require(__DIR__ . "/partials/nav.php");
         button:hover {
         box-shadow: none;
     }
+
+    .white-text {
+        color: #ffffff;
+    }
 </style>
 <div class="container">
     <div class="brand-logo"></div>
@@ -176,10 +180,10 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                         }
                         die(header("Location: home.php"));
                     } else {
-                        echo "Invalid password";
+                        echo "<span class='white-text'>invalid password</span>";
                     }
                 } else {
-                    echo "Email not found";
+                    echo "<span class='white-text'>mail not found</span>";
                 }
             }
         } catch (Exception $e) {

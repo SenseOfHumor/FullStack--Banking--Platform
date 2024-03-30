@@ -3,7 +3,6 @@ require(__DIR__ . "/partials/nav.php");
 ?>
 <style>
     body {
-        background: url('bg1.jpg') no-repeat center center fixed; 
         background-color: #f0f0f0;
         font-family: Arial, sans-serif;
         display: flex;
@@ -14,9 +13,8 @@ require(__DIR__ . "/partials/nav.php");
     }
     .content-box {
         background-color: #fff;
-        
         padding: 20px;
-        border-radius: 25px;
+        border-radius: 5px;
         box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     }
     h1 {

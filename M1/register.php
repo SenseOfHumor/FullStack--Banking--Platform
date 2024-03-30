@@ -86,6 +86,18 @@ require(__DIR__ . "/partials/nav.php");
         button:hover {
         box-shadow: none;
     }
+
+    .brand-title {
+        margin-top: 10px;
+        font-weight: 900;
+        font-size: 1.8rem;
+        color: #363636;
+        letter-spacing: 1px;
+    }
+
+    .white-text {
+        color: #ffffff;
+    }
 </style>
 <div class="container">
     <div class="brand-logo"></div>
@@ -152,9 +164,11 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
     if (
         strlen($password) > 0 && $password !== $confirm
     ) {
-        echo "Passwords must match";
+        echo "<span class='white-text'>Passwords must match</span>";
         $hasError = true;
+        
     }
+    
     if (!$hasError) {
         echo "Welcome, $email";
         //TODO 4
