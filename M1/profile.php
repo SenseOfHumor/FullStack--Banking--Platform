@@ -206,6 +206,7 @@ require(__DIR__ . "/partials/nav.php");
             <br>
             <label for="email">Email</label>
             <input type="email" name="email" id="email" value="<?php se($email); ?>" />
+            
         </div>
         <div class="mb-3">
             <label for="username">Username</label>

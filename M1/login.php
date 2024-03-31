@@ -1,5 +1,6 @@
 <?php
 require(__DIR__ . "/partials/nav.php");
+
 ?>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
@@ -122,6 +123,9 @@ require(__DIR__ . "/partials/nav.php");
 </script>
 <?php
 
+if (isset($_GET['message'])) {
+    echo "<span class='white-text'>" . $_GET['message'] . "</span>";
+}
 //TODO 2: add PHP Code
 if (isset($_POST["email"]) && isset($_POST["password"])) {
     $email = se($_POST, "email", "", false);
@@ -190,5 +194,9 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
             echo "<pre>" . var_export($e, true) . "</pre>";
         }
     }
+
+    
 }
+
+
 ?>
