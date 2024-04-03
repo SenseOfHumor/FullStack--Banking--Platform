@@ -105,7 +105,7 @@ require(__DIR__ . "/partials/nav.php");
         letter-spacing: 1px;
     }
 
-    .warning {
+    .flash {
     color: #ffffff;
     }
 
@@ -132,7 +132,7 @@ require(__DIR__ . "/partials/nav.php");
 
         // Check if the username or email already exists in the database
         $db = getDB();
-        $stmt = $db->prepare("SELECT COUNT(*) FROM Users WHERE email = :email OR username = :username");
+        $stmt = $db->prepare("SELECT COUNT(*) FROM Users WHERE email = :email AND username = :username");
         $stmt->execute([":email" => $email, ":username" => $username]);
         $count = $stmt->fetchColumn();
 
