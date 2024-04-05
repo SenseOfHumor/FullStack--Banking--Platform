@@ -117,8 +117,6 @@ require(__DIR__ . "/partials/nav.php");
     if (is_logged_in()) {
         //echo "Welcome, " . get_user_email();
         echo $_SESSION['user']['email'];
-        echo "<br>";
-        echo $_SESSION['user']['username'];
     } else {
         echo "You're not logged in";
     }

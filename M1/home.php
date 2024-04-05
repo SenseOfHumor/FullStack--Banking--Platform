@@ -46,3 +46,15 @@ require(__DIR__ . "/partials/nav.php");
     echo "<pre class='session-info'>" . var_export($_SESSION, true) . "</pre>";
     ?>
 </div>
+
+
+<?php
+if (is_logged_in()) {
+    
+    if (!isset($_SESSION['shown_welcome_message'])) {
+        echo "<script>alert('Logged In');</script>";
+        $_SESSION['shown_welcome_message'] = true;
+    }
+
+}
+
