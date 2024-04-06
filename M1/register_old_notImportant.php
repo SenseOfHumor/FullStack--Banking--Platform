@@ -1,6 +1,5 @@
 <?php
 require(__DIR__ . "/partials/nav.php");
-
 ?>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
@@ -14,7 +13,7 @@ require(__DIR__ . "/partials/nav.php");
         margin: 0;
         width: 100vw;
         height: 100vh;
-       
+        
         display: flex;
         align-items: center;
         text-align: center;
@@ -26,20 +25,12 @@ require(__DIR__ . "/partials/nav.php");
     .container {
         position: relative;
         width: 350px;
-        height: 500px;
+        height: 700px;
         border-radius: 20px;
         padding: 40px;
         box-sizing: border-box;
         background: #ecf0f3;
         /* box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white; */
-    }
-
-    .brand-title {
-        margin-top: 10px;
-        font-weight: 900;
-        font-size: 1.8rem;
-        color: #363636;
-        letter-spacing: 1px;
     }
     .inputs {
         text-align: left;
@@ -96,22 +87,34 @@ require(__DIR__ . "/partials/nav.php");
         box-shadow: none;
     }
 
+    .brand-title {
+        margin-top: 10px;
+        font-weight: 900;
+        font-size: 1.8rem;
+        color: #363636;
+        letter-spacing: 1px;
+    }
+
     .white-text {
         color: #ffffff;
     }
 </style>
 <div class="container">
     <div class="brand-logo"></div>
-    <div class="brand-title">LOGIN</div>
+    <div class="brand-title">REGISTER</div>
     <form class="inputs" onsubmit="return validate(this)" method="POST">
         <label>EMAIL</label>
         <input type="email" name="email" placeholder="email address here" required />
+        <label>USERNAME</label>
+        <input type="text" name="username" placeholder="username here" required />
         <label>PASSWORD</label>
-        <input type="password" name="password" placeholder="password here" required minlength="6" />
-        <button type="submit">LOGIN</button>
-        <!-- <button type="button" onclick="window.location.href='register.php'">REGISTER</button> -->
+        <input type="password" name="password" placeholder="password here" required minlength="8" />
+        <label>CONFIRM PASSWORD</label>
+        <input type="password" name="confirm" placeholder="confirm password here" required minlength="8" />
+        <button type="submit">REGISTER</button>
+        <!-- <button type="button" onclick="window.location.href='login.php'">LOGIN</button> -->
     </form>
-    <p>Don't have an account? <a href="register.php">Register</a></p>
+    <p>Already have an account? <a href="login.php">Login</a></p>
 </div>
 <script>
     function validate(form) {
@@ -122,15 +125,17 @@ require(__DIR__ . "/partials/nav.php");
     }
 </script>
 <?php
-
-if (isset($_GET['message'])) {
-    echo "<span class='white-text'>" . $_GET['message'] . "</span>";
-}
 //TODO 2: add PHP Code
-if (isset($_POST["email"]) && isset($_POST["password"])) {
+if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"])) {
     $email = se($_POST, "email", "", false);
+    $username = se($_POST, "username", "", false);
     $password = se($_POST, "password", "", false);
-
+    $confirm = se(
+        $_POST,
+        "confirm",
+        "",
+        false
+    );
     //TODO 3
     $hasError = false;
     if (empty($email)) {
@@ -148,55 +153,35 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         echo "password must not be empty";
         $hasError = true;
     }
+    if (empty($confirm)) {
+        echo "Confirm password must not be empty";
+        $hasError = true;
+    }
     if (strlen($password) < 8) {
         echo "Password too short";
         $hasError = true;
     }
+    if (
+        strlen($password) > 0 && $password !== $confirm
+    ) {
+        echo "<span class='white-text'>Passwords must match</span>";
+        $hasError = true;
+        
+    }
+    
     if (!$hasError) {
+        echo "Welcome, $email";
         //TODO 4
+        $hash = password_hash($password, PASSWORD_BCRYPT);
         $db = getDB();
-        $stmt = $db->prepare("SELECT id, email, password, username from Users where email = :email");
+        $stmt = $db->prepare("INSERT INTO Users (email, password, username) VALUES(:email, :password, :username)");
         try {
-            $r = $stmt->execute([":email" => $email]);
-            if ($r) {
-                $user = $stmt->fetch(PDO::FETCH_ASSOC);
-                if ($user) {
-                    $hash = $user["password"];
-                    unset($user["password"]);
-                    if (password_verify($password, $hash)) {
-                        echo "Weclome $email";
-                        $_SESSION["user"] = $user;
-                        try {
-                            //lookup potential roles
-                            $stmt = $db->prepare("SELECT Roles.name FROM Roles 
-                        JOIN UserRoles on Roles.id = UserRoles.role_id 
-                        where UserRoles.user_id = :user_id and Roles.is_active = 1 and UserRoles.is_active = 1");
-                            $stmt->execute([":user_id" => $user["id"]]);
-                            $roles = $stmt->fetchAll(PDO::FETCH_ASSOC); //fetch all since we'll want multiple
-                        } catch (Exception $e) {
-                            error_log(var_export($e, true));
-                        }
-                        //save roles or empty array
-                        if (isset($roles)) {
-                            $_SESSION["user"]["roles"] = $roles; //at least 1 role
-                        } else {
-                            $_SESSION["user"]["roles"] = []; //no roles
-                        }
-                        die(header("Location: home.php"));
-                    } else {
-                        echo "<span class='white-text'>invalid password</span>";
-                    }
-                } else {
-                    echo "<span class='white-text'>mail not found</span>";
-                }
-            }
+            $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
+            echo "Successfully registered!";
         } catch (Exception $e) {
-            echo "<pre>" . var_export($e, true) . "</pre>";
+            echo "There was a problem registering";
+            "<pre>" . var_export($e, true) . "</pre>";
         }
     }
-
-    
 }
-
-
 ?>

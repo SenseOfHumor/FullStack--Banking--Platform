@@ -136,7 +136,23 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         "",
         false
     );
+    // Check if the username or email already exists in the database
+    $db = getDB();
+    $stmt = $db->prepare("SELECT COUNT(*) FROM Users WHERE email = :email OR username = :username");
+    $stmt->execute([":email" => $email, ":username" => $username]);
+    $count = $stmt->fetchColumn();
     //TODO 3
+        // If the count is greater than 0, it means a duplicate exists
+        if ($count > 0) {
+            echo "<span class='white-text'>The chosen username or email is already taken.</span>";
+            $hasError = true;
+        } else {
+            //TODO 3
+            $hasError = false;
+            if (empty($email)) {
+                echo "<span class='white-text'>Email must not be empty</span>";
+                $hasError = true;
+            }
     $hasError = false;
     if (empty($email)) {
         echo "Email must not be empty";
@@ -183,5 +199,5 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
             "<pre>" . var_export($e, true) . "</pre>";
         }
     }
-}
+}}
 ?>

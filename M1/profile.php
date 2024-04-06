@@ -104,6 +104,11 @@ require(__DIR__ . "/partials/nav.php");
         color: #363636;
         letter-spacing: 1px;
     }
+
+    .flash {
+    color: #ffffff;
+    }
+
 </style>
 <div class="content-box">
 <div class="brand-title">WELCOME TO YOUR PROFILE</div>
@@ -122,8 +127,23 @@ require(__DIR__ . "/partials/nav.php");
         $email = se($_POST, "email", null, false);
         $username = se($_POST, "username", null, false);
 
-        $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
+
+        // Check if the username or email already exists in the database
         $db = getDB();
+        $stmt = $db->prepare("SELECT COUNT(*) FROM Users WHERE email = :email AND username = :username");
+        $stmt->execute([":email" => $email, ":username" => $username]);
+        $count = $stmt->fetchColumn();
+
+        // If the count is greater than 0, it means a duplicate exists
+        if ($count > 0) {
+        flash("The chosen username or email is already taken.", "warning");
+        } else {
+        // If no duplicates, proceed with the update logic...
+        // ... existing update logic here ...
+        
+
+        $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
+        // $db = getDB();
         $stmt = $db->prepare("UPDATE Users set email = :email, username = :username where id = :id");
         try {
             $stmt->execute($params);
@@ -142,7 +162,7 @@ require(__DIR__ . "/partials/nav.php");
                 //TODO come up with a nice error message
                 echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
             }
-        }
+        }}
         //select fresh data from table
         $stmt = $db->prepare("SELECT id, email, username from Users where id = :id LIMIT 1");
         try {
@@ -206,10 +226,12 @@ require(__DIR__ . "/partials/nav.php");
             <br>
             <label for="email">Email</label>
             <input type="email" name="email" id="email" value="<?php se($email); ?>" />
+            
         </div>
         <div class="mb-3">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" value="<?php se($username); ?>" />
+            <label for="username">Username </label>
+            
+            <input type="username" name="username" id="username" value="<?php se($username); ?>" />
         </div>
         <!-- DO NOT PRELOAD PASSWORD -->
         <br>
