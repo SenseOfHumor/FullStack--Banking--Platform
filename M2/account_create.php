@@ -56,7 +56,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Show success message
         echo "<p style='color: green;'>Account created!</p>";
 
-        
+        // // Redirect user to their Accounts page
+        // header("Location: accounts.php");
+        // echo "<p style='color: green;'>Account created!</p>";
+        // exit();
+        // echo "<p style='color: green;'>Account created!</p>";
+        // Stay on the current page for 5 seconds, then redirect to the accounts page
+//         echo '<script>
+//         document.write(\'<meta http-equiv="refresh" content="2;url=accounts.php" />\');
+//       </script>';
+// exit();
+
     }
 }
 

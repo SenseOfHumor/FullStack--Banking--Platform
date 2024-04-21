@@ -158,6 +158,17 @@ function recordTransaction($db, $account_src, $account_dest, $balance_change, $t
         margin-bottom: 20px;
     }
 
+    select {
+        background: #ecf0f3;
+        padding: 10px;
+        height: 50px;
+        font-size: 14px;
+        border-radius: 50px;
+        box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+        width: calc(100% - 40px);
+        margin-bottom: 20px;
+        border: none;
+    }
     input[type="submit"] {
         background-color: #1DA1F2;
         border: none;
