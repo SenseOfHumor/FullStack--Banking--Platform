@@ -129,6 +129,7 @@ if(isset($_GET["selected_account"])) {
         box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
         width: calc(100% - 40px);
         margin-bottom: 20px;
+        border: none;
     }
 
     input[type="submit"] {

@@ -62,6 +62,7 @@ require(__DIR__ . "/partials/nav.php");
 
     <button onclick="window.location.href='accounts.php'">ACCOUNTS</button>
     <button onclick="window.location.href='account_create.php'">CREATE ACCOUNT</button>
+    <button onclick="window.location.href='withdraw_deposit.php'">WITHDRAW/DEPOSIT</button>
     <div class="footer">
         <p>Want to Logout? <a href="login.php">Register</a></p>
     </div>
