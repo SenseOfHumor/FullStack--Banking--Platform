@@ -22,6 +22,12 @@ $stmt = $db->prepare("SELECT COUNT(*) AS num_accounts FROM Accounts WHERE user_i
 $stmt->execute([":user_id" => $user_id]);
 $num_accounts = $stmt->fetch(PDO::FETCH_ASSOC)["num_accounts"];
 
+// Fetching the existing account balances for the logged-in user
+$stmt = $db->prepare("SELECT balance FROM Accounts WHERE user_id = :user_id");
+$stmt->execute([":user_id" => $user_id]);
+$account_balances = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+
 // Fetching the account numbers for the logged-in user
 $stmt = $db->prepare("SELECT account_number FROM Accounts WHERE user_id = :user_id");
 $stmt->execute([":user_id" => $user_id]);
@@ -238,12 +244,24 @@ function recordTransaction($db, $account_src, $account_dest, $balance_change, $t
     </form>
 
     <?php if ($accounts): ?>
-        <h2>Existing Accounts</h2>
-        <p>Number of existing accounts: <?php echo htmlspecialchars($num_accounts); ?></p>
-        <ul>
-            <?php foreach ($accounts as $account): ?>
-                <li><?php echo htmlspecialchars($account["account_number"]); ?></li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
+    <h2>Existing Accounts</h2>
+    <p>Number of existing accounts: <?php echo htmlspecialchars($num_accounts); ?></p>
+    <ul>
+        <?php foreach ($accounts as $account): ?>
+            <?php
+            // Fetch the balance for each account
+            $stmt = $db->prepare("SELECT balance FROM Accounts WHERE account_number = :account_number AND user_id = :user_id");
+            $stmt->execute([
+                ":account_number" => $account["account_number"],
+                ":user_id" => $user_id
+            ]);
+            $balance = $stmt->fetchColumn();
+            ?>
+            <li>
+                <?php echo htmlspecialchars($account["account_number"]); ?> - Balance: <?php echo htmlspecialchars($balance); ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+
 </div>

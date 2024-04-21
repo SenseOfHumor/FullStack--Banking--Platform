@@ -17,7 +17,7 @@ if(isset($_GET["selected_account"])) {
     $selected_account = $_GET["selected_account"];
     
     // Fetch account information for the selected account
-    $stmt = $db->prepare("SELECT * FROM Accounts WHERE account_number = :account_number");
+    $stmt = $db->prepare("SELECT account_number, account_type, modified, balance FROM Accounts WHERE account_number = :account_number");
     $stmt->execute([":account_number" => $selected_account]);
     $account = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -62,6 +62,7 @@ if(isset($_GET["selected_account"])) {
                     <tr>
                         <th>Account Number</th>
                         <th>Account Type</th>
+                        <th>Modified Date</th>
                         <th>Balance</th>
                     </tr>
                 </thead>
@@ -69,6 +70,7 @@ if(isset($_GET["selected_account"])) {
                     <tr>
                         <td><?php echo htmlspecialchars($account['account_number']); ?></td>
                         <td><?php echo htmlspecialchars($account['account_type']); ?></td>
+                        <td><?php echo htmlspecialchars($account['modified']); ?></td>
                         <td><?php echo htmlspecialchars($account['balance']); ?></td>
                     </tr>
                 </tbody>
