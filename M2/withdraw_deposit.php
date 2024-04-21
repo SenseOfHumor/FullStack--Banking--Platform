@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["balance"])) {
     // Validate input
     $balance = floatval($_POST["balance"]); // Convert balance to float
     if ($balance <= 0) {
-        echo "<p style='color: white;'>Please enter a valid deposit amount.</p>";
+        echo "<p style='color: red;'>Please enter a valid deposit amount.</p>";
     } else {
         $selected_account = $_POST["selected_account"];
         // Update selected account balance
@@ -43,15 +43,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["balance"])) {
             ":user_id" => $user_id
         ]);
 
-        // Update world account balance
-        $stmt = $db->prepare("UPDATE Accounts SET balance = balance - :balance WHERE id = -1");
+        // Update world account balance (add to it for deposit)
+        $stmt = $db->prepare("UPDATE Accounts SET balance = balance + :balance WHERE id = -1");
         $stmt->execute([":balance" => $balance]);
 
         // Record deposit transaction
         recordTransaction($db, '000000000000', $selected_account, $balance, 'deposit', 'Deposit', $balance);
 
         // Show success message
-        echo "<p style='color: white;'>Deposit of $balance made successfully.</p>";
+        echo "<p style='color: green;'>Deposit of $balance made successfully.</p>";
     }
 }
 
@@ -70,9 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["withdraw_amount"])) {
     $account_balance = $stmt->fetchColumn();
 
     if ($withdraw_amount <= 0) {
-        echo "<p style='color: white;'>Please enter a valid withdrawal amount.</p>";
+        echo "<p style='color: red;'>Please enter a valid withdrawal amount.</p>";
     } elseif ($withdraw_amount > $account_balance) {
-        echo "<p style='color: white;'>Insufficient funds for withdrawal.</p>";
+        echo "<p style='color: red;'>Insufficient funds for withdrawal.</p>";
     } else {
         // Proceed with withdrawal transaction
         $stmt = $db->prepare("UPDATE Accounts SET balance = balance - :withdraw_amount WHERE account_number = :account_number AND user_id = :user_id");
@@ -82,15 +82,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["withdraw_amount"])) {
             ":user_id" => $user_id
         ]);
 
-        // Update world account balance
-        $stmt = $db->prepare("UPDATE Accounts SET balance = balance + :withdraw_amount WHERE id = -1");
+        // Update world account balance (subtract from it for withdrawal)
+        $stmt = $db->prepare("UPDATE Accounts SET balance = balance - :withdraw_amount WHERE id = -1");
         $stmt->execute([":withdraw_amount" => $withdraw_amount]);
 
         // Record withdrawal transaction
         recordTransaction($db, $selected_account, '000000000000', -$withdraw_amount, 'withdrawal', 'Withdrawal', $account_balance - $withdraw_amount);
 
         // Show success message
-        echo "<p style='color: white;'>Withdrawal of $withdraw_amount made successfully.</p>";
+        echo "<p style='color: green;'>Withdrawal of $withdraw_amount made successfully.</p>";
     }
 }
 
