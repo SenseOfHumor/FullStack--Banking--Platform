@@ -4,24 +4,21 @@ require(__DIR__ . "/partials/nav.php");
 // Initialize database connection
 $db = getDB();
 
-// Fetching the user's account number
+// Fetching the user's account numbers
 $user_id = $_SESSION["user"]["id"];
 
-// Fetch the user's account number from the Accounts table
-$stmt = $db->prepare("SELECT account_number FROM Accounts WHERE user_id = :user_id LIMIT 1");
+// Fetch the user's account numbers from the Accounts table
+$stmt = $db->prepare("SELECT account_number FROM Accounts WHERE user_id = :user_id");
 $stmt->execute([":user_id" => $user_id]);
-$account = $stmt->fetch(PDO::FETCH_ASSOC);
+$accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Pre-fill the search box with the user's account number, if available
-$account_number = $account ? $account["account_number"] : "";
-
-// Fetching account information for the provided account number, if available
-if(isset($_GET["account_number"])) {
-    $account_number = $_GET["account_number"];
+// Fetching account information for the selected account, if available
+if(isset($_GET["selected_account"])) {
+    $selected_account = $_GET["selected_account"];
     
-    // Fetch account information for the provided account number
+    // Fetch account information for the selected account
     $stmt = $db->prepare("SELECT * FROM Accounts WHERE account_number = :account_number");
-    $stmt->execute([":account_number" => $account_number]);
+    $stmt->execute([":account_number" => $selected_account]);
     $account = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if($account) {
@@ -45,14 +42,19 @@ if(isset($_GET["account_number"])) {
         </table>
 <?php
     } else {
-        echo "<p>No account found for the provided account number.</p>";
+        echo "<p>No account found for the selected account number.</p>";
     }
 }
 ?>
 
-<h2>View Account Information</h2>
+<h2>Select Account</h2>
 <form method="GET">
-    <label for="account_number">Enter Account Number:</label>
-    <input type="text" id="account_number" name="account_number" value="<?php echo htmlspecialchars($account_number); ?>" required>
+    <label for="selected_account">Select Account:</label>
+    <select id="selected_account" name="selected_account" required>
+        <option value="" selected disabled>Select an account</option>
+        <?php foreach ($accounts as $account): ?>
+            <option value="<?php echo htmlspecialchars($account['account_number']); ?>"><?php echo htmlspecialchars($account['account_number']); ?></option>
+        <?php endforeach; ?>
+    </select>
     <input type="submit" value="View Account">
 </form>
