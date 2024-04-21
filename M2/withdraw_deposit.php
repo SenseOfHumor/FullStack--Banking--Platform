@@ -27,16 +27,12 @@ $stmt = $db->prepare("SELECT account_number FROM Accounts WHERE user_id = :user_
 $stmt->execute([":user_id" => $user_id]);
 $accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Check if there is a deposit or withdrawal message in the session
-$deposit_message = $_SESSION["deposit_message"] ?? null;
-$withdrawal_message = $_SESSION["withdrawal_message"] ?? null;
-
 // Account deposit logic
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["balance"])) {
     // Validate input
     $balance = floatval($_POST["balance"]); // Convert balance to float
     if ($balance <= 0) {
-        $_SESSION["deposit_message"] = "Please enter a valid deposit amount.";
+        echo "<p style='color: white;'>Please enter a valid deposit amount.</p>";
     } else {
         $selected_account = $_POST["selected_account"];
         // Update selected account balance
@@ -47,16 +43,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["balance"])) {
             ":user_id" => $user_id
         ]);
 
+        // Update world account balance
+        $stmt = $db->prepare("UPDATE Accounts SET balance = balance - :balance WHERE id = -1");
+        $stmt->execute([":balance" => $balance]);
+
         // Record deposit transaction
         recordTransaction($db, '000000000000', $selected_account, $balance, 'deposit', 'Deposit', $balance);
 
-        // Set deposit message
-        $_SESSION["deposit_message"] = "Deposit of $" . number_format($balance, 2) . " has been successful.";
+        // Show success message
+        echo "<p style='color: white;'>Deposit of $balance made successfully.</p>";
     }
-
-    // Redirect back to the same page
-    header("Location: {$_SERVER['PHP_SELF']}");
-    exit();
 }
 
 // Withdrawal logic
@@ -74,9 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["withdraw_amount"])) {
     $account_balance = $stmt->fetchColumn();
 
     if ($withdraw_amount <= 0) {
-        $_SESSION["withdrawal_message"] = "Please enter a valid withdrawal amount.";
+        echo "<p style='color: white;'>Please enter a valid withdrawal amount.</p>";
     } elseif ($withdraw_amount > $account_balance) {
-        $_SESSION["withdrawal_message"] = "Insufficient funds for withdrawal.";
+        echo "<p style='color: white;'>Insufficient funds for withdrawal.</p>";
     } else {
         // Proceed with withdrawal transaction
         $stmt = $db->prepare("UPDATE Accounts SET balance = balance - :withdraw_amount WHERE account_number = :account_number AND user_id = :user_id");
@@ -86,16 +82,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["withdraw_amount"])) {
             ":user_id" => $user_id
         ]);
 
+        // Update world account balance
+        $stmt = $db->prepare("UPDATE Accounts SET balance = balance + :withdraw_amount WHERE id = -1");
+        $stmt->execute([":withdraw_amount" => $withdraw_amount]);
+
         // Record withdrawal transaction
         recordTransaction($db, $selected_account, '000000000000', -$withdraw_amount, 'withdrawal', 'Withdrawal', $account_balance - $withdraw_amount);
 
-        // Set withdrawal message
-        $_SESSION["withdrawal_message"] = "Withdrawal of $" . number_format($withdraw_amount, 2) . " has been successful.";
+        // Show success message
+        echo "<p style='color: white;'>Withdrawal of $withdraw_amount made successfully.</p>";
     }
-
-    // Redirect back to the same page
-    header("Location: {$_SERVER['PHP_SELF']}");
-    exit();
 }
 
 // Function to generate a random account number
@@ -175,17 +171,6 @@ function recordTransaction($db, $account_src, $account_dest, $balance_change, $t
         transition: background-color 0.3s ease;
     }
 
-    select {
-        background: #ecf0f3;
-        padding: 10px;
-        height: 50px;
-        font-size: 14px;
-        border-radius: 50px;
-        box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
-        width: calc(100% - 40px);
-        margin-bottom: 20px;
-        border: none;
-    }
     input[type="submit"]:hover {
         background-color: #0d8ae5;
     }
@@ -206,16 +191,6 @@ function recordTransaction($db, $account_src, $account_dest, $balance_change, $t
 
 <div class="container">
     <div class="brand-title">Deposit / Withdraw</div>
-
-    <?php if ($deposit_message): ?>
-        <p style="color: green;"><?php echo $deposit_message; ?></p>
-        <?php unset($_SESSION["deposit_message"]); ?>
-    <?php endif; ?>
-
-    <?php if ($withdrawal_message): ?>
-        <p style="color: red;"><?php echo $withdrawal_message; ?></p>
-        <?php unset($_SESSION["withdrawal_message"]); ?>
-    <?php endif; ?>
 
     <form method="POST">
         <div>
