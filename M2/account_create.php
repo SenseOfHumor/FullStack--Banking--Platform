@@ -45,13 +45,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ":account_type" => $account_type
         ]);
 
+        // Update world account balance (add for deposit)
+        $stmt = $db->prepare("UPDATE Accounts SET balance = balance + :balance WHERE id = -1");
+        $stmt->execute([":balance" => $balance]);
+
         // Record transaction with appropriate source account ID
         $source_account_id = 1; // Assuming '1' is the ID of the default source account
         recordTransaction($db, $source_account_id, $account_number, $balance, 'deposit', 'Initial deposit', $balance);
 
-        // Redirect user to their Accounts page
-        header("Location: accounts.php");
-        exit();
+        // Show success message
+        echo "<p style='color: green;'>Account created!</p>";
+
+        
     }
 }
 
@@ -177,4 +182,3 @@ function recordTransaction($db, $account_src, $account_dest, $balance_change, $t
         </ul>
     <?php endif; ?>
 </div>
-
