@@ -114,8 +114,8 @@ if ($selected_account_number && in_array($selected_account_number, $accounts)) {
                 <thead>
                     <tr>
                         <th>Transaction Type</th>
-                        <th>Source Account</th>
                         <th>Destination Account</th>
+                        <th>Source Account</th>
                         <th>Balance Change</th>
                         <th>Expected Total</th>
                         <th>Memo</th>

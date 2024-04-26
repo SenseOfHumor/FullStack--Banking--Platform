@@ -1,12 +1,16 @@
 <table><tr><td> <em>Assignment: </em> IT202 Milestone 2 Bank Project</td></tr>
 <tr><td> <em>Student: </em> Swapnil Deb (sd2269)</td></tr>
-<tr><td> <em>Generated: </em> 4/21/2024 3:38:00 AM</td></tr>
+<tr><td> <em>Generated: </em> 4/26/2024 8:49:44 AM</td></tr>
 <tr><td> <em>Grading Link: </em> <a rel="noreferrer noopener" href="https://learn.ethereallab.app/homework/IT202-102-S2024/it202-milestone-2-bank-project/grade/sd2269" target="_blank">Grading</a></td></tr></table>
 <table><tr><td> <em>Instructions: </em> <ol><li>Checkout Milestone2 branch</li><li>Create a new markdown file called milestone2.md</li><li>git add/commit/push immediate</li><li>Fill in the below deliverables</li><li>At the end copy the markdown and paste it into milestone2.md</li><li>Add/commit/push the changes to Milestone2</li><li>PR Milestone2 to dev and verify</li><li>PR dev to prod and verify</li><li>Checkout dev locally and pull changes to get ready for Milestone 3</li><li>Submit the direct link to this new milestone2.md file from your GitHub prod branch to Canvas</li></ol><p>Note: Ensure all images appear properly on github and everywhere else. Images are only accepted from dev or prod, not local host. All website links must be from prod (you can assume/infer this by getting your dev URL and changing dev to prod).</p></td></tr></table>
 <table><tr><td> <em>Deliverable 1: </em> Create Accounts table and setup </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="https://user-images.githubusercontent.com/54863474/211707834-bf5a5b13-ec36-4597-9741-aa830c195be2.png"></td></tr>
 <tr><td><table><tr><td> <em>Sub-Task 1: </em> Add a screenshot from the db of the system user (Users table)</td></tr>
-<tr><td><table><tr><td>Missing Image</td></tr>
-<tr><td> <em>Caption:</em> (missing)</td></tr>
+<tr><td><table><tr><td><img width="768px" src="https://firebasestorage.googleapis.com/v0/b/learn-e1de9.appspot.com/o/assignments%2Fsd2269%2F2024-04-26T12.44.45image.png.webp?alt=media&token=71a280e5-e2fb-40a7-9ed9-190085504a22"/></td></tr>
+<tr><td> <em>Caption:</em> <p>the first row shows the system user<br></p>
+</td></tr>
+<tr><td><img width="768px" src="https://firebasestorage.googleapis.com/v0/b/learn-e1de9.appspot.com/o/assignments%2Fsd2269%2F2024-04-26T12.45.56image.png.webp?alt=media&token=e86c787e-048d-4b79-9a7e-90b06a3bc952"/></td></tr>
+<tr><td> <em>Caption:</em> <p>the picture shows the id value to be negative<br></p>
+</td></tr>
 </table></td></tr>
 <tr><td> <em>Sub-Task 2: </em> Add a screenshot from the db of the world account (Accounts table)</td></tr>
 <tr><td><table><tr><td><img width="768px" src="https://firebasestorage.googleapis.com/v0/b/learn-e1de9.appspot.com/o/assignments%2Fsd2269%2F2024-04-21T07.07.39image.png.webp?alt=media&token=ec4568c2-d076-43e3-ab02-e1d4c8f2042d"/></td></tr>
@@ -21,10 +25,11 @@
 <tr><td> <em>Sub-Task 4: </em> Add related pull request link(s)</td></tr>
 <tr><td>Not provided</td></tr>
 </table></td></tr>
-<table><tr><td> <em>Deliverable 2: </em> Dashboard </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="https://user-images.githubusercontent.com/54863474/211707795-a9c94a71-7871-4572-bfae-ad636f8f8474.png"></td></tr>
+<table><tr><td> <em>Deliverable 2: </em> Dashboard </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="https://user-images.githubusercontent.com/54863474/211707834-bf5a5b13-ec36-4597-9741-aa830c195be2.png"></td></tr>
 <tr><td><table><tr><td> <em>Sub-Task 1: </em> Add a screenshot showing the requested links/navigation</td></tr>
-<tr><td><table><tr><td>Missing Image</td></tr>
-<tr><td> <em>Caption:</em> (missing)</td></tr>
+<tr><td><table><tr><td><img width="768px" src="https://firebasestorage.googleapis.com/v0/b/learn-e1de9.appspot.com/o/assignments%2Fsd2269%2F2024-04-26T12.47.27image.png.webp?alt=media&token=40c36647-e50b-4b7f-9eed-65da9a8af63c"/></td></tr>
+<tr><td> <em>Caption:</em> <p>picture of the dashboard page<br></p>
+</td></tr>
 </table></td></tr>
 <tr><td> <em>Sub-Task 2: </em> Explain which ones are working for this milestone</td></tr>
 <tr><td> <em>Response:</em> <p>(missing)</p><br></td></tr>
