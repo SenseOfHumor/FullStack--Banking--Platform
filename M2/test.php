@@ -3,6 +3,17 @@ require(__DIR__ . "/partials/nav.php");
 
 ?>
 
+<?php if (isset($_GET['carid'])): ?>
+    <h1>Car Details
+        <?php
+        echo $_GET['carid'];
+        ?>
+    </h1>
+<?php else: ?>
+
+<?php //endif; ?>
+
+
 <h2> Cars </h2>
 
 <form>
@@ -34,15 +45,16 @@ require(__DIR__ . "/partials/nav.php");
     <?php
 
 $db = getDB();
-$stmt = $db->prepare("SELECT make, model, year from Cars");
+$stmt = $db->prepare("SELECT make, model, year, id from Cars");
 try{
     $r = $stmt->execute();
     if ($r){
         $cars = $stmt->fetchALL(PDO::FETCH_ASSOC);
         foreach($cars as $car){
+            echo '<a href = "test.php?carid=' . $car['id'] . '"><tr>';
             echo '<tr>';
 
-            echo '<td>' . $car['make'] . '</td>';
+            echo '<td> <a href = "test.php?carid=' . $car['id']." ". $car['make']." " .$car['model'] ." ".$car['year']." ". '">' . $car['make'] . '</a></td>';
             echo '<td>' . $car['model'] . '</td>';
             echo '<td>' . $car['year'] . '</td>';
 
@@ -81,3 +93,5 @@ $year = $_GET["year"];
 ?>
 
 </table>
+
+<?php endif; ?>
