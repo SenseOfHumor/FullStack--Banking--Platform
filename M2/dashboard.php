@@ -65,7 +65,7 @@ require(__DIR__ . "/partials/nav.php");
     <button onclick="window.location.href='withdraw_deposit.php'">WITHDRAW/DEPOSIT</button>
     <button onclick="window.location.href='transaction_history.php'">TRANSACTION HISTORY</button>
     <div class="footer">
-        <p>Want to Logout? <a href="login.php">Register</a></p>
+        <p>Want to Logout? <a href="logout.php">Logout</a></p>
     </div>
 </div>
 
