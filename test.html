@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Resume</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #e0e5ec;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        .box {
+            padding: 15px;
+            background: #e0e5ec;
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px #bbb, -5px -5px 10px #fff;
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            margin: 0 0 10px 0;
+        }
+
+        p, ul {
+            margin: 5px 0;
+            line-height: 1.5;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background-color: #e0e5ec;
+            box-shadow: 3px 3px 6px #bbb, -3px -3px 6px #fff;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            box-shadow: inset 3px 3px 6px #bbb, inset -3px -3px 6px #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="center">
+            <h1>Swapnil Deb</h1>
+            <p>Paterson, NJ | +1 862-385-5820 | <a href="mailto:swa2314@gmail.com">swa2314@gmail.com</a></p>
+            <p><a href="https://github.com/SenseOfHumor">GitHub</a> | <a href="https://linkedin.com/in/swapnil-deb-3096b2207/">LinkedIn</a></p>
+        </div>
+
+        <!-- Skills & Education -->
+        <div class="grid">
+            <div class="box">
+                <h2>Skills</h2>
+                <p>Python, Java, Bash, C, SQL, HTML, CSS, JS (ongoing), PHP (ongoing)</p>
+                <p>Git, Vim, VS Code, Eclipse, Colab, Figma, Blender, Office Suite</p>
+                <p>NumPy, Pandas, MatPlotLib, Sklearn, Streamlit, Plotly</p>
+                <p>English (Fluent), Hindi (Native), Bengali (Native)</p>
+            </div>
+
+            <div class="box">
+                <h2>Education</h2>
+                <p>BSc Computer Science @ NJIT - GPA: 3.657</p>
+                <p>BSc CSE @ Siliguri Institute of Technology (transferred) - GPA: 4.0</p>
+            </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="grid">
+            <div class="box">
+                <h2>Experience</h2>
+                <p><strong>Prudential Financial, Fall 24</strong></p>
+                <ul>
+                    <li>Assist w/ app dev, security workflows</li>
+                    <li>Work w/ cross-functional teams, data analysis</li>
+                </ul>
+                <p><strong>UPS, Spring 23</strong></p>
+                <ul>
+                    <li>Route planning using Dijkstra’s & A*</li>
+                    <li>Improved team productivity by 20%</li>
+                </ul>
+            </div>
+
+            <div class="box">
+                <h2>Accomplishments</h2>
+                <ul>
+                    <li>Hack Princeton 2023 API winner (Verbwire)</li>
+                    <li>Gold medal, National Science Olympiad</li>
+                    <li>Designed YouTube stream packages</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="box">
+            <h2>Projects</h2>
+            <p><strong>REZOOME:</strong> AI-powered resume booster using Google Gemini, Streamlit</p>
+            <p><strong>WaterProof:</strong> Blockchain-based water quality app w/ MongoDB, Flask</p>
+        </div>
+    </div>
+
+</body>
+</html>
